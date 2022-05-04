@@ -1,5 +1,5 @@
 import styles from './Product.module.scss';
-import {useState} from 'react';
+import { useState, useMemo } from 'react';
 import ProductForm from '../ProductForm/ProductForm';
 import ProductImage from '../ProductImage/ProductImage'
 
@@ -22,10 +22,11 @@ const Product = props => {
     setCurrentSize(e.target.value);
   };
 
-  const getPrice = () => {
+  const getPrice = useMemo(() => {
+    console.log('set');
     const found = props.sizes.find(element => element.name === currentSize);
     return props.basePrice + found.additionalPrice;
-  }
+  }, [currentSize, props.sizes, props.basePrice]);
 
   const addToCard = e => {
     e.preventDefault();
@@ -33,7 +34,7 @@ const Product = props => {
       'Summary:',
       '==================:',
       '\nName:', props.name,
-      '\nPrice:', getPrice(),
+      '\nPrice:', getPrice,
       '\nSize:', currentSize,
       '\nColor:', currentColor,
       );
@@ -49,7 +50,7 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {getPrice}$</span>
         </header>
         <ProductForm
           sizes={props.sizes}
