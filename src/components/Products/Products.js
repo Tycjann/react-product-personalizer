@@ -8,9 +8,7 @@ const Products = () => {
 
   return (
     <section>
-      {
-        products.map(product => <Product key={nanoid()} {...product} />)
-      }
+      { products.map(product => <Product key={nanoid()} {...product} />) }
     </section>
   );
 };
